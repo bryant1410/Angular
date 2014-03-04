@@ -1,4 +1,4 @@
-#Angular Best Practices
+#AngularJS Style Guide
 
 ##Feature Driven Development
 See: http://www.johnpapa.net/angular-growth-structure/
