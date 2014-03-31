@@ -1,0 +1,229 @@
+<h1>AngularJS Best Practices</h1>
+
+<h2>Feature Driven Development</h2>
+
+<p>See: http://www.johnpapa.net/angular-growth-structure/</p>
+
+<p>Feature driven development is more about how you organise and structure your application than how you code the functionality. Rather than produce 1 large complicated app you create discreet pieces and couple them together. </p>
+
+<h3>By type - No</h3>
+
+<p>Files organised by type means having your controllers, services, 
+filters, directives, views etc. placed in their respective folders. 
+Nothing is discrete, development and testing is done in large 
+blocks. Large applications quickly become overly complex.</p>
+
+<pre><code>|
+|- controllers
+|--- controllers.mod.js
+|--- home.ctrl.js
+|--- about.ctrl.js
+|--- contact.ctrl.js
+|--- login.ctrl.js
+|- services
+|--- auth.svc.js
+</code></pre>
+
+<h3>By Feature - Yes</h3>
+
+<p>The application is organised by the self-contained features that it
+requires. Each feature can be plugged into or out of the application
+with relative ease. It is not baked directly into the application’s
+foundations. Both development and testing is conducted within the
+scope of each feature.</p>
+
+<pre><code>|
+|- home
+|--- home.mod.js
+|--- home.ctrl.js
+|- about
+|--- about.mod.js
+|--- about.ctrl.js
+|- contact
+|--- contact.mod.js
+|--- contact.ctrl.js
+|- login
+|--- login.mod.js
+|--- login.ctrl.js
+|--- auth.svc.js
+</code></pre>
+
+<p><strong>See the <a href="http://grumpywizards.com/ngTemplate">ngTemplate project</a> 
+for an example of how to organise your application and what each 
+directory is used for.</strong></p>
+
+<h2>Dependency Injection</h2>
+
+<p>See: http://docs.angularjs.org/guide/dev<em>guide.services.managing</em>dependencies</p>
+
+<p>There are two types of dependencies you can include in your modules 
+and controllers. The first is listing your required modules and the
+second is injecting services into your controllers.</p>
+
+<h3>Requiring modules</h3>
+
+<pre><code>angular.module('demo', [
+      'demo.features.login
+])
+</code></pre>
+
+<p>This is a fairly standard process of how we require modules in AngularJS. 
+Naming conventions are covered in the next section but you can see here 
+that required modules should be grouped by feature.</p>
+
+<h3>Injecting dependencies</h3>
+
+<p>Should be done explicity to prevent errors during minification and disjointed
+dependencies within your code.</p>
+
+<pre><code>.controller('homeCtrl', ['$scope', '$state', function ($scope, $state) { }])
+</code></pre>
+
+<h2>Naming Conventions</h2>
+
+<p>It is important to provide distinct names to components of your 
+application. This mitigates the possibility that the angular source,
+3rd party libraries and shared components will have clashing module 
+names, giving unexpected results.</p>
+
+<h3>Scoping components</h3>
+
+<p>All components (directives, controllers, services etc.) should be
+prefixed with an identifier that is relevant to their scope. E.g.
+'dashboard.' for an app called "dashboard".</p>
+
+<h3>Element list and patterns to follow</h3>
+
+<p>To aid readability in the solution the type of component should be 
+appended to each file name, for example:</p>
+
+<ul>
+<li>dashboard.mod.js  - the module declaration</li>
+<li>dashboard.dir.js – a directive</li>
+<li>dashboard.svc.js – a service or factory</li>
+<li>dashboard.ctrl.js – a controller</li>
+<li>dashboard.flt.js – a filter </li>
+<li>dashboard.tpl.html – the template</li>
+<li>dashboard.spec.js – the unit tests</li>
+<li>dashboard.spec.conf.js – unit tests config</li>
+<li>dashboard.feature – cucumber specificiation for testing</li>
+</ul>
+
+<h2>HTML Templates and Logic</h2>
+
+<p>See: http://docs.angularjs.org/guide/templates</p>
+
+<blockquote>
+  <p>An Angular template is the declarative specification that, 
+  along with information from the model and controller, becomes 
+  the rendered view that a user sees in the browser. It is the 
+  static DOM, containing HTML, CSS, and angular-specific elements 
+  and angular-specific element attributes. The Angular elements 
+  and attributes direct angular to add behaviour and transform 
+  the template DOM into the dynamic view DOM.</p>
+</blockquote>
+
+<p>The AngularJS Team</p>
+
+<p>Don't write HTML in your JavaScript <em>(unless you are building 
+a distributable directive where templateUrl won’t function 
+correctly, or it’s an abstract state, see routing section)</em>.</p>
+
+<pre><code>$scope.errorMsg = "&lt;strong&gt;Validation failed&lt;/strong&gt;";
+</code></pre>
+
+<p>Don’t use logic in your HTML templates, for example the 
+following should not be done:</p>
+
+<pre><code>&lt;div class="alert" ng-show="players &gt; 20"&gt;Too many players&lt;/div&gt;
+</code></pre>
+
+<p>You should declare a property or method on scope and use that 
+to drive your HTML conditions.</p>
+
+<p>Using a declarative approach to logic provides a more maintainable 
+template. If we used <code>players &gt; 20</code> on multiple HTML elements it 
+would create additional overhead if we were to update that 
+condition. By encapsulating the logic in a property or method 
+it provides both semantically correct mark-up and re-usability.</p>
+
+<h2>Directives</h2>
+
+<p>See: http://docs.angularjs.org/guide/directive</p>
+
+<p>Directives are a way to attach a specified behaviour to a DOM 
+element or even to transform an element and its children.</p>
+
+<h3>Attributes</h3>
+
+<p>When you are decorating an existing element with new
+functionality, directives should be applied as attributes.</p>
+
+<pre><code>&lt;div wiz-mouse-over="move()"&gt;Can't touch this&lt;/div&gt;
+</code></pre>
+
+<p>The directive in the example above calls the defined behaviour
+when a mouse moves over an element. It is generic, reusable and 
+does not change the element beyond the bounds of the mouse event.</p>
+
+<p>These directives should be developed in a generic way, with 
+minimal understanding of the element content and can be used across 
+an application.</p>
+
+<h3>Elements</h3>
+
+<p>When creating self-contained components, you should use the element 
+notation. This allows us to describe functionality in templates by 
+applying directives as a <strong>domain specific language</strong>.</p>
+
+<pre><code>&lt;wiz-markdown&gt;&lt;/wiz-markdown&gt;
+</code></pre>
+
+<p>Each element is responsible for delivering its described functionality 
+and should have ‘replace’ set to true in order to tidy up the html 
+after they are compiled.</p>
+
+<p>The parent template is more descriptive and easier to maintain as you 
+can simply switch functionality on or off by adding or removing the element.</p>
+
+<p>Element directives should be placed alongside their corresponding feature. </p>
+
+<h2>Filters</h2>
+
+<p>See: http://docs.angularjs.org/guide/filter</p>
+
+<p>Filters should be organised in accordance to their parent features, 
+unless they are designed to provide commonly accessible functionality.</p>
+
+<h3>Performance of filters</h3>
+
+<p>Angular continuously conducts “dirty-checking”, in essence it is 
+looking for changes to values over and over again and raising events 
+for $watch and $filter to hook into. If you place a filter on your 
+HTML page like so:</p>
+
+<pre><code>&lt;div ng-bind="item.amount | roundDown"&gt;&lt;/div&gt;
+</code></pre>
+
+<p>Don't be surprise if it starts at some point executing A LOT repeatedly.
+If you place the above code inside a repeater you are essentially 
+increasing the filter execution by a factor of the number of items 
+within the repeater’s array.</p>
+
+<p>If possible, you should apply filters to your data before binding to your view</p>
+
+<h2>Routers</h2>
+
+<p>See: https://github.com/angular-ui/ui-router</p>
+
+<h3>AngularUI Router</h3>
+
+<p>All routing should be conducted using AngularUI Router. AngularUI 
+Router is an external plugin used to convert your application into
+a state machine. ngRoute uses the URL to drive navigation. uiRouter 
+reverses your app's relationship with the URL. It uses states to
+navigate and it drives changes to the URL rather than the URL driving 
+changes to your app.</p>
+
+<p><a href="https://github.com/angular-ui/ui-router">Please familiarise yourself with the AngularUI 
+Router documentation</a></p>
