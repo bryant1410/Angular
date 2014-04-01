@@ -86,11 +86,48 @@ application. This mitigates the possibility that the angular source,
 3rd party libraries and shared components will have clashing module 
 names, giving unexpected results.</p>
 
-<h3>Scoping components</h3>
+<h3>Prefixing</h3>
 
-<p>All components (directives, controllers, services etc.) should be
-prefixed with an identifier that is relevant to their scope. E.g.
-'dashboard.' for an app called "dashboard".</p>
+<p>All components (directives, controllers, services) must be
+prefixed with an identifier that is relevant to their scope:</p>
+
+<ul>
+<li>if shared across all applications use a company prefix: 'wiz' for Grumpy
+Wizards for example.</li>
+<li>if exclusive to an application use an application prefix: 'todo' if
+Grumpy Wizards built a todo list app for example.</li>
+<li><em>controllers do not need to be prefixed</em></li>
+</ul>
+
+<h3>Postfixing</h3>
+
+<p>The following component types should be postfixed as per the examples below:</p>
+
+<ul>
+<li>Controllers: MarkdownCtrl</li>
+<li>Services: wizMarkdownSvc</li>
+<li>Filters: wizMarkdownFltr</li>
+<li>Directives: do not require postfixing wizMarkdown > becomes <code>wiz-markdown</code> in markup.</li>
+</ul>
+
+<h3>Capitalisation</h3>
+
+<p>Controllers are considered classes and as such they should have a leading
+capital letter: MarkdownCtrl, all other components should start with lower
+case e.g. wizMarkdown.</p>
+
+<h3>Modules</h3>
+
+<p>Module namespacing format should following this pattern:</p>
+
+<pre><code>&lt;application&gt;.&lt;[api,component,feature,service]&gt;.&lt;name&gt;
+</code></pre>
+
+<p>Examples:
+- wiz.service.addNumbers
+- todo.component.markdown
+- reader.todo.api.email
+- users.feature.about</p>
 
 <h3>Element list and patterns to follow</h3>
 
@@ -211,6 +248,16 @@ increasing the filter execution by a factor of the number of items
 within the repeater’s array.</p>
 
 <p>If possible, you should apply filters to your data before binding to your view</p>
+
+<h2>Services</h2>
+
+<p>Services are responsible for the business logic in your application.</p>
+
+<p>UI logic, when to disable a button for example, should not be 
+carried out in a service.</p>
+
+<p><strong>See the <a href="http://grumpywizards.com/ngTemplate">ngTemplate project</a> for
+further info on where to place your business logic</strong></p>
 
 <h2>Routers</h2>
 

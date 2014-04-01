@@ -77,10 +77,39 @@ application. This mitigates the possibility that the angular source,
 3rd party libraries and shared components will have clashing module 
 names, giving unexpected results.
 
-###Scoping components
-All components (directives, controllers, services etc.) should be
-prefixed with an identifier that is relevant to their scope. E.g.
-'dashboard.' for an app called "dashboard".
+###Prefixing
+All components (directives, controllers, services) must be
+prefixed with an identifier that is relevant to their scope:
+
+- if shared across all applications use a company prefix: 'wiz' for Grumpy
+Wizards for example.
+- if exclusive to an application use an application prefix: 'todo' if
+Grumpy Wizards built a todo list app for example.
+- *controllers do not need to be prefixed*
+
+###Postfixing
+The following component types should be postfixed as per the examples below:
+
+- Controllers: MarkdownCtrl
+- Services: wizMarkdownSvc
+- Filters: wizMarkdownFltr
+- Directives: do not require postfixing wizMarkdown > becomes `wiz-markdown` in markup.
+
+###Capitalisation
+Controllers are considered classes and as such they should have a leading
+capital letter: MarkdownCtrl, all other components should start with lower
+case e.g. wizMarkdown.
+
+###Modules
+Module namespacing format should following this pattern:
+
+    <application>.<[api,component,feature,service]>.<name>
+
+Examples:
+- wiz.service.addNumbers
+- todo.component.markdown
+- reader.todo.api.email
+- users.feature.about
 
 ###Element list and patterns to follow
 To aid readability in the solution the type of component should be 
@@ -185,6 +214,15 @@ increasing the filter execution by a factor of the number of items
 within the repeater’s array.
 
 If possible, you should apply filters to your data before binding to your view
+
+##Services
+Services are responsible for the business logic in your application.
+
+UI logic, when to disable a button for example, should not be 
+carried out in a service.
+
+**See the [ngTemplate project](http://grumpywizards.com/ngTemplate) for
+further info on where to place your business logic**
 
 ##Routers
 See: https://github.com/angular-ui/ui-router
