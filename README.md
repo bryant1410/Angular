@@ -111,7 +111,7 @@ Examples:
 - reader.todo.api.email
 - users.feature.about
 
-###File names
+###Filenames
 To aid readability in the solution the type of component should be 
 appended to each file name, for example:
 
