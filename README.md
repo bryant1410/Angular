@@ -47,6 +47,22 @@ scope of each feature.
 for an example of how to organise your application and what each 
 directory is used for.**
 
+##Module Declaration
+Modules should be declared using the global `angular` variable like so:
+
+    // app module
+    angular.module('demo', [
+                   'demo.features.login'
+    ]);
+    
+    // sub-module
+    angular.module('demo.features.login');
+
+- No additional globabl variables are required
+- Your can access your modules from everywhere 
+- Modules can be placed into different files
+- You can use the function-form of `use strict`;
+
 ##Dependency Injection
 See: http://docs.angularjs.org/guide/dev_guide.services.managing_dependencies
 
@@ -57,7 +73,7 @@ second is injecting services into your controllers.
 ###Requiring modules
 
     angular.module('demo', [
-		  'demo.features.login
+                   'demo.features.login
     ])
 
 This is a fairly standard process of how we require modules in AngularJS. 
