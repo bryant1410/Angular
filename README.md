@@ -59,7 +59,7 @@ Modules should be declared using the global `angular` variable like so:
     angular.module('demo.features.login');
 
 - No additional globabl variables are required
-- Your can access your modules from everywhere 
+- You can access your modules from everywhere 
 - Modules can be placed into different files
 - You can use the function-form of `use strict`;
 
