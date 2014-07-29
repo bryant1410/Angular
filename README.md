@@ -58,10 +58,10 @@ Modules should be declared using the global `angular` variable like so:
     // sub-module
     angular.module('demo.features.login');
 
-- No additional globabl variables are required
+- No additional global variables are required
 - You can access your modules from everywhere 
 - Modules can be placed into different files
-- You can use the function-form of `use strict`;
+- You can use the function-form of `use strict;`
 
 ##Dependency Injection
 See: http://docs.angularjs.org/guide/dev_guide.services.managing_dependencies
@@ -109,7 +109,7 @@ The following component types should be postfixed as per the examples below:
 - Controllers: MarkdownCtrl
 - Services: wizMarkdownSvc
 - Filters: wizMarkdownFltr
-- Directives: do not require postfixing wizMarkdown > becomes `wiz-markdown` in markup.
+- Directives: do not require postfixing wizMarkdown > becomes `wiz-markdown` in markup
 
 ###Capitalisation
 Controllers are considered classes and as such they should have a leading
@@ -238,7 +238,7 @@ UI logic, when to disable a button for example, should not be
 carried out in a service.
 
 **See the [ngTemplate project](http://grumpywizards.com/ngTemplate) for
-further info on where to place your business logic**
+further info on where to place your business logic.**
 
 ##Routers
 See: https://github.com/angular-ui/ui-router
