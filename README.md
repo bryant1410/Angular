@@ -43,7 +43,7 @@ scope of each feature.
     |--- login.ctrl.js
     |--- auth.svc.js
 
-**See the [ngTemplate project](http://grumpywizards.com/ngTemplate) 
+**See the [ngTemplate project](http://grumpywizards.com/ngtemplate) 
 for an example of how to organise your application and what each 
 directory is used for.**
 
@@ -237,7 +237,7 @@ Services are responsible for the business logic in your application.
 UI logic, when to disable a button for example, should not be 
 carried out in a service.
 
-**See the [ngTemplate project](http://grumpywizards.com/ngTemplate) for
+**See the [ngTemplate project](http://grumpywizards.com/ngtemplate) for
 further info on where to place your business logic.**
 
 ##Routers
